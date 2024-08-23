@@ -32,6 +32,89 @@ $ThisProfile = {
 	
 	
 
+	function Get-SHA512FileHash
+	{
+		<#
+		.SYNOPSIS
+			Calculates a SHA512 File Hash for a file.
+		
+		.DESCRIPTION
+			The Get-SHA512FileHash will calculate and output a SHA512 file hash for a single file.  It also has an option to save the hash as "filename.SHA512",
+			for later reference.  Obviously this is only useful for files whose content shoul stay exactly the same.
+		
+		.PARAMETER Path
+			The path to the file the hash should be calculated from.
+		
+		.PARAMETER SaveHash
+			This switch will cause the computed file hash to be saved as "filename.SHA512" in the same directory as the file the hash was calculated from.
+		
+		.EXAMPLE
+			PS C:\> Get-SHA512FileHash -Path 'C:\ISOs\Windows11Pro.ISO'
+			
+			This will return the SHA512 file hash for Windows11Pro.ISO as a string.
+		
+		.OUTPUTS
+			string
+		
+		.NOTES
+			Additional information about the function.
+		#>	
+		[CmdletBinding(DefaultParameterSetName = 'Simple',
+					   ConfirmImpact = 'Low',
+					   PositionalBinding = $true)]
+		[OutputType([System.String], ParameterSetName = 'Simple')]
+		[OutputType([System.String], ParameterSetName = 'Complex')]
+		[OutputType([System.String])]
+		param
+		(
+			[Parameter(ParameterSetName = 'Simple',
+					   Mandatory = $true,
+					   ValueFromPipeline = $true,
+					   ValueFromPipelineByPropertyName = $true,
+					   Position = 0)]
+			[Parameter(ParameterSetName = 'Complex',
+					   Mandatory = $true,
+					   ValueFromPipeline = $true,
+					   ValueFromPipelineByPropertyName = $true,
+					   Position = 0)]
+			[ValidateNotNullOrEmpty()]
+			[string]$Path,
+			[Parameter(ParameterSetName = 'Complex',
+					   Mandatory = $false,
+					   Position = 1)]
+			[switch]$SaveHash
+		)
+		
+		Begin
+		{
+			
+		}
+		Process
+		{
+			switch ($PsCmdlet.ParameterSetName)
+			{
+				'Simple' {
+					$Hash = Get-FileHash -Path $Path -Algorithm SHA512
+					return $Hash.hash
+				}
+				'Complex' {
+					$File = Get-ChildItem -Path $Path
+					$FileLocation = $Path | Split-Path
+					$Hash = Get-FileHash -Path $Path -Algorithm SHA512
+					$HashFileName = "$($File.basename).SHA512"
+					Set-Content -Value $Hash.hash -Path "$FileLocation\$HashFileName"
+					return $Hash.hash
+				}
+			}
+			
+		}
+		End
+		{
+			
+		}
+	} #Get-SHA512FileHash
+	
+	
 	function ConvertTo-Base64EncodedString
 	{
 		<#
