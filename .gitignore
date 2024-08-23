@@ -4,4 +4,6 @@
 *.backup
 #This is a temoprary save file from Powershell Studio.
 *.TempPoint.*
-
+#These are Powershell Studio Project Files
+*.psproj
+*.psprojs
