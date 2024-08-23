@@ -284,8 +284,8 @@ $ThisProfile = {
 	#                            #
 	# Host Initialization Code   #
 	##############################
-
-
+	oh-my-posh init pwsh --config 'https://raw.githubusercontent.com/JonathanFierstein/themes/clean-detailed.omp.json' |
+	Invoke-Expression
 
 
 } #end $ThisProfile
