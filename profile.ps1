@@ -284,6 +284,10 @@ $ThisProfile = {
 	#                            #
 	# Host Initialization Code   #
 	##############################
+	Invoke-Expression (& { (zoxide init powershell | Out-String) })
+	Set-Alias -Name z -Value __zoxide_z -Option AllScope -Scope Global -Force
+	Set-Alias -Name zi -Value __zoxide_zi -Option AllScope -Scope Global -Force
+	
 	oh-my-posh init pwsh --config 'https://raw.githubusercontent.com/JonathanFierstein/themes/clean-detailed.omp.json' |
 	Invoke-Expression
 
