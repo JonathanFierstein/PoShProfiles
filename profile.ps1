@@ -301,11 +301,20 @@ $ThisProfile = {
 		git add *
 	}
 	
-	function gc
+	function gco
 	{
 		git commit
 	}
 	
+	fucntion gpus
+	{
+		git push
+	}
+	
+	function gpul
+	{
+		git pull
+	}
 	
 	function gcm
 	{
