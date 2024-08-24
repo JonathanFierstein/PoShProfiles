@@ -6,8 +6,9 @@ $ThisProfile = {
 	#########################################################################################
 	#
 	#########################################################################################
-	#Modification Details...
-	#8/22/2024 - Added MUCH more code to the 
+	#Profile & Repository History
+	#8/22/2024 - Modification history can now be found in the History.md document located
+	#within the root directory of the PoshProfile repository.
 	##########################################################################################
 		
 		
@@ -233,9 +234,53 @@ $ThisProfile = {
 		}
 	} #ConvertFrom-Base64EncodedString
 	
-	
-	
-	
+
+	function gcext
+	{
+		<#
+		.SYNOPSIS
+			Sorts the files in a directory by extension and counts the total files of each type.
+		
+		.DESCRIPTION
+			This functions enumerates a directory and sorts the files by extension and then displays the total number of files for each extension type found in the directory as a table.
+		
+		.PARAMETER Path
+			The path to the directory where the files should be catagorized and counted.
+		
+		.EXAMPLE
+			PS C:\> gcext -Path C:\FSO\
+		
+			This command would 
+		.NOTES
+			Additional information about the function.
+		#>		
+		[CmdletBinding(ConfirmImpact = 'None')]
+		[OutputType([System.Object])]
+		param
+		(
+			[Parameter(ValueFromPipeline = $true,
+					   Position = 0)]
+			[ValidateNotNullOrEmpty()]
+			[system.string]$Path = .
+		)
+		
+		Begin
+		{
+			
+		}
+		Process
+		{
+			Get-ChildItem -Path $Path |
+			Where-Object { !$_.PSisContainer } |
+			Group-Object -Property Extension |
+			Sort-Object -Property Extension, Count -Descending |
+			Format-Table -Property Count, Name, Group
+		}
+		End
+		{
+			
+		}
+	}
 	
 	
 	
@@ -261,7 +306,7 @@ $ThisProfile = {
 		git commit
 	}
 	
-
+	
 	function gcm
 	{
 		param
@@ -295,7 +340,7 @@ $ThisProfile = {
 } #end $ThisProfile
 
 $TimeToExecute = Measure-Command -Expression $ThisProfile
+Write-Host "Welcome to Powershell Version $PSVersion"
+Write-Host "It took $TimeToExecute.Seconds seconds to execute your PowerShell profile..."
 
-"Profile Execution is Complete.   It took $TimeToExecute.Seconds seconds to execute your PowerShell profile..."
-"Welcome to Powershell Version $PSVersion"
 
