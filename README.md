@@ -1,12 +1,5 @@
 # PoShProfiles
 
-
-**This repository will eventually contain my personal well developed PowerShell Profiles for a few different deployment environments...**
-
-The following profiles will be here...
-
-* **profile.ps1**      -      This is the allhosts profile I use on my personal desktop or noteboook systems.
-* **HTL-Subprofile.ps1**      -      This is a secondary profile that I execute on my homelab systems.
-                          -      It adds objects and functions that automate administration of my homelab domain.  
-* **HTL-profile.ps1**      -      This is the default profile that runs on all systems that use Powershell in the Homeone Domain
-                              It is similar to my personal desktop allhost profile listed at the top but leaves out some functions etc.
+This repository used to be for something a little different, but I changed it so now it contains
+my PowerShell profiles from my primary Windows workstation.  Soon, once I create profiles for 
+my Linux systems that run PowerShell now, I would add those profiles also.
